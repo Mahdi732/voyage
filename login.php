@@ -17,7 +17,7 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(to left, #7be3ff, #a8bdf5 );
+      background-image: url(streetart2.jpg);
       font-family: 'Poppins', sans-serif; 
 
     }
@@ -35,7 +35,6 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
       top: 0;
       width: 100%;
       height: 100%;
-      backdrop-filter: blur(10px);
     }
     input, button {
       border: none;
@@ -311,21 +310,14 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
 </head>
 <body>
 <nav class="md:flex md:justify-around md:gap-[10rem] md:items-center bg-opacity-80 md:h-[4rem] fixed top-0 left-0 z-50 w-full bg-transparent">
-        <a class="md:h-[14rem] md:w-[14rem] md:ml-[-5.8rem] md:mt-3" href="#"><img src="Travel Paths.png" alt="loogo"></a>
+        <a class="md:h-[14rem] md:w-[14rem] md:ml-[-5.8rem] md:mt-3" href="index.php"><img src="Travel Paths.png" alt="loogo"></a>
         <ul class="flex justify-around items-center gap-[15rem] text-lg font-serif">
             <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="index.php">HOME</a></li>
-            <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="#">TRAVEL</a></li>
+            <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="tours.php">TOURS</a></li>
             <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="#"></a>ABOUT US</li>
             <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="login.php">LOGIN</a></li>
         </ul>
     </nav>
-    <div class="absolute inset-0">
-    <video autoplay muted loop class="w-full h-full object-cover">
-      <source src="b.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <div class="absolute inset-0 bg-black bg-opacity-30"></div> <!-- Overlay -->
-  </div>
 <div class="cont">
 
   <div class="backgr"></div>
@@ -404,6 +396,6 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
       document.querySelector('.cont').classList.toggle('s-signup')
     });
   </script>
-      
+
 </body>
 </html>
