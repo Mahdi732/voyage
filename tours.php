@@ -113,18 +113,19 @@ $data = mysqli_query($connect, $selectall);
 if($data){
     echo '<div class="grid grid-cols-3 gap-x-[20rem] justify-center mt-4 ">';
     while($fetch = mysqli_fetch_assoc($data)){
-        echo '<div class="max-w-sm bg-white rounded-lg shadow-lg h-[22rem] w-[19rem] p-6 mb-6 overflow-auto">';
-        echo '<h2 class="text-2xl font-semibold text-gray-800 mb-4">Tour Details</h2>';
-        echo '<div class="space-y-1">';
-        echo '<p class="text-lg font-medium text-gray-600"><strong>Titre:</strong> ' . $fetch['titre'] . '</p>';
-        echo '<p class="text-lg font-medium text-gray-600"><strong>Description:</strong> ' . $fetch["description"] . '</p>';
-        echo '<p class="text-lg font-medium text-gray-600"><strong>Destination:</strong> ' . $fetch["destination"] . '</p>';
-        echo '<p class="text-lg font-medium text-gray-600"><strong>Prix:</strong> ' . $fetch["prix"] . ' DH</p>';
-        echo '<p class="text-lg font-medium text-gray-600"><strong>Date de Début:</strong> ' . $fetch["date_debut"] . '</p>';
-        echo '<p class="text-lg font-medium text-gray-600"><strong>Date de Fin:</strong> ' . $fetch["date_fin"] . '</p>';
-        echo '<p class="text-lg font-medium text-gray-600"><strong>Places Disponibles:</strong> ' . $fetch["places_desponsibles"] . '</p>';
-        echo '</div>';
-        echo '</div>';        
+        echo '<div class="max-w-sm bg-white rounded-lg shadow-lg h-[22rem] w-[19rem] p-6 mb-6 overflow-auto">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tour Details</h2>
+        <div class="space-y-1">
+        <p class="text-lg font-medium text-gray-600"><strong>Titre:</strong> ' . $fetch['titre'] . '</p>
+        <p class="text-lg font-medium text-gray-600"><strong>Description:</strong> ' . $fetch["description"] . '</p>
+        <p class="text-lg font-medium text-gray-600"><strong>Destination:</strong> ' . $fetch["destination"] . '</p>
+        <p class="text-lg font-medium text-gray-600"><strong>Prix:</strong> ' . $fetch["prix"] . ' DH</p>
+        <p class="text-lg font-medium text-gray-600"><strong>Date de Début:</strong> ' . $fetch["date_debut"] . '</p>
+        <p class="text-lg font-medium text-gray-600"><strong>Date de Fin:</strong> ' . $fetch["date_fin"] . '</p>
+        <p class="text-lg font-medium text-gray-600"><strong>Places Disponibles:</strong> ' . $fetch["places_desponsibles"] . '</p>
+        </div>
+        <button class=" bg-red-700 p-1 rounded-lg text-center text-[12px] w-[16rem] text-white transition-all duration-300">delete</button>
+        </div>';        
     }
     echo '</div>';
   }
