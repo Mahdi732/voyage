@@ -20,24 +20,21 @@
                 <a href="tours.php">TOURS</a>
             </li>
             <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg">
-                <a href="#">ABOUT US</a>
+                <a href="dashbord.php">ABOUT US</a>
             </li>
             <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg">
                 <a href="login.php">LOGIN</a>
             </li>
         </ul>
     </nav>
+    <button>
 
-    <div class="w-full h-[100vh] flex items-start justify-end mb-12">
-        <button class="py-4  px-8 bg-blue-600 rounded-xl text-white"
-          onclick="document.getElementById('addActivitiesform').classList.toggle('hidden')">
-          Add Activity
-        </button>
- 
-        <!-- Add Activities Form -->
-        <div id="addActivitiesform" class="w-[50rem] mx-auto mt-10 p-8 bg-blue-400 rounded-md shadow-lg border border-purple-300 hidden">
+    </button>
+<div class=" flex flex-row-reverse gap-[3rem]">
+    <div class="w-full h-[100vh] ml-[20rem] mb-12">
+        <div id="addActivitiesform" class="w-[30rem]  mt-4 mr-4 p-8 bg-blue-400 rounded-md shadow-lg border border-purple-300 ">
             <h2 class="text-xl font-bold text-blue-800 mb-6 text-center">Ajouter une Activité</h2>
-            <form action="/submit" method="POST" class="space-y-5">
+            <form action="conect.php" method="POST" class="space-y-5">
                 <div>
                     <label class="block text-sm font-semibold text-black">Titre</label>
                     <input type="text"  name="titre" placeholder="Entrez le titre"
@@ -45,7 +42,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-black">Description</label>
-                    <textarea  name="description" rows="3" placeholder="Entrez la description"
+                    <textarea  name="description" placeholder="Entrez la description"
                       class="mt-1 w-full rounded border border-blue-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 p-2 bg-white" required></textarea>
                 </div>
                 <div>
@@ -55,7 +52,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-black">Prix</label>
-                    <input type="number"  name="prix" step="0.01" placeholder="Entrez le prix"
+                    <input type="number"  name="prix" placeholder="Entrez le prix"
                       class="mt-1 w-full rounded border border-blue-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 p-2 bg-white" required>
                 </div>
                 <div class="flex justify-between gap-4">
@@ -84,7 +81,55 @@
             </form>
         </div>
     </div>
+    <?php 
+    include '/xampp/htdocs/voyage/conect.php';
+     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $titre = $_POST["titre"];
+    $description = $_POST["description"];
+    $destination = $_POST["destination"];
+    $prix = $_POST["prix"];
+    $date_debut = $_POST["date_debut"];
+    $date_fin = $_POST["date_fin"];
+    $places_disponibles = $_POST["places_disponibles"];
+    $sql = "INSERT INTO activite (titre,description,destination,prix,date_debut,date_fin,places_desponsibles) VALUES ('$titre', 
+    '$description','$destination','$prix','$date_debut','$date_fin','$places_disponibles')";
+    
+    $sqlquery = mysqli_prepare($connect, $sql);
+    $sqlexcute = mysqli_stmt_execute($sqlquery);
 
+    if($sqlexcute){
+        echo '<script type="text/javascript">
+            if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+            }
+        </script>';
+    }else{
+        echo 'error' . mysqli_stmt_error($sqlquery);
+    }
+
+}
+$selectall = "SELECT * FROM activite";
+$data = mysqli_query($connect, $selectall);
+if($data){
+    echo '<div class="grid grid-cols-3 gap-x-[20rem] justify-center mt-4 ">';
+    while($fetch = mysqli_fetch_assoc($data)){
+        echo '<div class="max-w-sm bg-white rounded-lg shadow-lg h-[22rem] w-[19rem] p-6 mb-6 overflow-auto">';
+        echo '<h2 class="text-2xl font-semibold text-gray-800 mb-4">Tour Details</h2>';
+        echo '<div class="space-y-1">';
+        echo '<p class="text-lg font-medium text-gray-600"><strong>Titre:</strong> ' . $fetch['titre'] . '</p>';
+        echo '<p class="text-lg font-medium text-gray-600"><strong>Description:</strong> ' . $fetch["description"] . '</p>';
+        echo '<p class="text-lg font-medium text-gray-600"><strong>Destination:</strong> ' . $fetch["destination"] . '</p>';
+        echo '<p class="text-lg font-medium text-gray-600"><strong>Prix:</strong> ' . $fetch["prix"] . ' DH</p>';
+        echo '<p class="text-lg font-medium text-gray-600"><strong>Date de Début:</strong> ' . $fetch["date_debut"] . '</p>';
+        echo '<p class="text-lg font-medium text-gray-600"><strong>Date de Fin:</strong> ' . $fetch["date_fin"] . '</p>';
+        echo '<p class="text-lg font-medium text-gray-600"><strong>Places Disponibles:</strong> ' . $fetch["places_desponsibles"] . '</p>';
+        echo '</div>';
+        echo '</div>';        
+    }
+    echo '</div>';
+  }
+    ?>
+</div>
     <footer class="bg-gray-900 text-gray-400">
         <div class=" flex flex-col md:flex-row justify-between items-center">
             <img src="Travel Paths.png" class="h-[4rem] w-[4rem]" alt="Logo">
@@ -96,8 +141,5 @@
             <p class="text-sm">© 2024 Fut Champion. All rights reserved.</p>
         </div>
     </footer>
-
-
-    <?php include '/xampp/htdocs/voyage/conect.php'; ?>
 </body>
 </html>

@@ -54,7 +54,7 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
       position: relative;
       width: 640px;
       height: 100%;
-      padding: 50px 30px;
+      padding: 70px 30px;
       backdrop-filter: blur(20px);
       -webkit-transition: -webkit-transform 1.2s ease-in-out;
       transition: -webkit-transform 1.2s ease-in-out;
@@ -314,7 +314,7 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
         <ul class="flex justify-around items-center gap-[15rem] text-lg font-serif">
             <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="index.php">HOME</a></li>
             <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="tours.php">TOURS</a></li>
-            <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="#"></a>ABOUT US</li>
+            <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="dashbord.php"></a>ABOUT US</li>
             <li class="hover:bg-blue-400 hover:bg-opacity-20 hover:text-white transition duration-300 cursor-pointer h-[2.5rem] pt-1.5 w-[6rem] text-center rounded-lg"><a href="login.php">LOGIN</a></li>
         </ul>
     </nav>
@@ -325,11 +325,11 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
       <h2>Sign In</h2>
       <label>
         <span>Email Address</span>
-        <input type="email" name="email">
+        <input type="email" >
       </label>
       <label>
         <span>Password</span>
-        <input type="Password" name="password">
+        <input type="Password" >
       </label>
       <button class="submit" type="button">Sign In</button>
       <p class="forgot-pass">Forgot Password ?</p>
@@ -369,23 +369,39 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
       </div>
       <div class="form sign-up">
         <h2>Sign up</h2>
-        <label>
+        <form  method="POST">
+          <div class="flex ">
+          <label>
           <span>Name</span>
-          <input type="text">
+          <input type="text" name="name">
         </label>
+        <label>
+          <span>prenom</span>
+          <input type="text" name="prenom">
+        </label>
+          </div>
+          <div class="flex ">
         <label>
           <span>Email</span>
-          <input type="email">
+          <input type="email" name="email">
         </label>
         <label>
-          <span>Password</span>
-          <input type="password">
+          <span>telephone</span>
+          <input type="number" name="telephone">
+        </label>
+          </div>
+          <div class="flex ">
+        <label>
+          <span>address</span>
+          <input type="text" name="address">
         </label>
         <label>
-          <span>Confirm Password</span>
-          <input type="password">
+          <span>data_naissance</span>
+          <input type="date" name="data_naissance">
         </label>
-        <button type="button" class="submit">Sign Up Now</button>
+          </div>
+        <button type="submit" class="submit">Sign Up Now</button>
+        </form>
       </div>
     </div>
   </div>
@@ -396,6 +412,31 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
       document.querySelector('.cont').classList.toggle('s-signup')
     });
   </script>
+
+  <?php
+  include'/xampp/htdocs/voyage/conect.php';
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST["name"];
+    $prenom = $_POST["prenom"];
+    $email = $_POST["email"];
+    $telephone = $_POST["telephone"];
+    $address = $_POST["address"];
+    $data_naissance = $_POST["data_naissance"];
+    $sql = "INSERT INTO client (nom, prenom, email, telephone, address, data_naissance) VALUES (
+    '$name', '$prenom', '$email', '$telephone', '$address', '$data_naissance')";
+    $sqlquery = mysqli_prepare($connect, $sql);
+    $sqlexcute = mysqli_stmt_execute($sqlquery);
+    if ($sqlexcute) {
+      echo'<script type="text/javascript">
+            if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+            }
+        </script>';
+    }else {
+      echo 'error' . mysqli_stmt_error($sqlquery);
+    }
+  }
+  ?>
 
 </body>
 </html>
