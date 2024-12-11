@@ -39,8 +39,7 @@ $sql = "INSERT INTO reservation (id_reservation , id_client , id_activite , date
 --  Modifier les détails d’une Activité.
 UPDATE `activite` SET `titre` = 'Et corpori' WHERE `activite`.`id_activite` = 22;
 -- Supprimer une réservation.
-DELETE FROM `reservation` WHERE `reservation`.`id_reservation` = 23
-
+DELETE FROM `reservation` WHERE `reservation`.`id_reservation` = 23;
 -- la requete de jointure entre les tables pour selectionner
 SELECT a.* FROM activite as a  INNER JOIN reservation as r on r.id_activite = a.id_activite INNER JOIN client as c on r.id_client = c.id_client 
 WHERE nom = "Ruth";

@@ -34,7 +34,7 @@
     <div class="w-full h-[100vh] ml-[20rem] mb-12">
         <div id="addActivitiesform" class="w-[30rem]  mt-4 mr-4 p-8 bg-blue-400 rounded-md shadow-lg border border-purple-300 ">
             <h2 class="text-xl font-bold text-blue-800 mb-6 text-center">Ajouter une Activité</h2>
-            <form action="conect.php" method="POST" class="space-y-5">
+            <form method="POST" class="space-y-5">
                 <div>
                     <label class="block text-sm font-semibold text-black">Titre</label>
                     <input type="text"  name="titre" placeholder="Entrez le titre"
@@ -83,14 +83,17 @@
     </div>
     <?php 
     include '/xampp/htdocs/voyage/conect.php';
-     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $titre = $_POST["titre"];
-    $description = $_POST["description"];
-    $destination = $_POST["destination"];
-    $prix = $_POST["prix"];
-    $date_debut = $_POST["date_debut"];
-    $date_fin = $_POST["date_fin"];
-    $places_disponibles = $_POST["places_disponibles"];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET["delete_id"])) {
+    $delete_id = $_GET["delete_id"];
+    $sqli = "DELETE FROM activite WHERE id_activite = $delete_id";
+    $result = mysqli_query($connect, $sqli);
+    $titre = isset($_POST["titre"]) ? $_POST["titre"] : '';
+    $description = isset($_POST["description"]) ? $_POST["description"] : '';
+    $destination = isset($_POST["destination"]) ? $_POST["destination"] : '';
+    $prix = isset($_POST["prix"]) ? $_POST["prix"] : '';
+    $date_debut = isset($_POST["date_debut"]) ? $_POST["date_debut"] : '';
+    $date_fin = isset($_POST["date_fin"]) ? $_POST["date_fin"] : '';
+    $places_disponibles = isset($_POST["places_disponibles"]) ? $_POST["places_disponibles"] : '';
     $sql = "INSERT INTO activite (titre,description,destination,prix,date_debut,date_fin,places_desponsibles) VALUES ('$titre', 
     '$description','$destination','$prix','$date_debut','$date_fin','$places_disponibles')";
     
@@ -108,7 +111,7 @@
     }
 
 }
-$selectall = "SELECT * FROM activite";
+$selectall = "SELECT * FROM activite ORDER BY titre"  ;
 $data = mysqli_query($connect, $selectall);
 if($data){
     echo '<div class="grid grid-cols-3 gap-x-[20rem] justify-center mt-4 ">';
@@ -127,7 +130,7 @@ if($data){
         <form method="POST" action="">
             <button type="submit" class=" bg-red-700 p-1 rounded-lg text-center text-[12px] w-[16rem] text-white transition-all duration-300">Delete<input type="hidden" name="delete_id" value="' . $fetch['id_activite'] . '"></button>
         </form>        
-        </div>';       
+        </div>';
     }
    
     echo '</div>';
