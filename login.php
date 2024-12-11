@@ -436,6 +436,7 @@ integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfc
       echo 'error' . mysqli_stmt_error($sqlquery);
     }
   }
+
   ?>
 
 </body>

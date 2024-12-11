@@ -124,9 +124,12 @@ if($data){
         <p class="text-lg font-medium text-gray-600"><strong>Date de Fin:</strong> ' . $fetch["date_fin"] . '</p>
         <p class="text-lg font-medium text-gray-600"><strong>Places Disponibles:</strong> ' . $fetch["places_desponsibles"] . '</p>
         </div>
-        <button class=" bg-red-700 p-1 rounded-lg text-center text-[12px] w-[16rem] text-white transition-all duration-300">delete</button>
-        </div>';        
+        <form method="POST" action="">
+            <button type="submit" class=" bg-red-700 p-1 rounded-lg text-center text-[12px] w-[16rem] text-white transition-all duration-300">Delete<input type="hidden" name="delete_id" value="' . $fetch['id_activite'] . '"></button>
+        </form>        
+        </div>';       
     }
+   
     echo '</div>';
   }
     ?>

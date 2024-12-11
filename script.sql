@@ -30,4 +30,17 @@ CREATE TABLE reservation (
     PRIMARY KEY (id_reservation),
     FOREIGN KEY (id_client) REFERENCES client(id_client),
     FOREIGN KEY (id_activite) REFERENCES activite(id_activite) 
-)
+);
+
+-- modifier champs de table
+ALTER TABLE `activite` MODIFY `id_activite` INT(11) NOT NULL AUTO_INCREMENT;
+--  Ajouter une nouvelle réservation.
+$sql = "INSERT INTO reservation (id_reservation , id_client , id_activite , date_reservation, statu) VALUES ('$id_reservation', '$id_client', '$id_activite', '$date_reservation', '$statu')";
+--  Modifier les détails d’une Activité.
+UPDATE `activite` SET `titre` = 'Et corpori' WHERE `activite`.`id_activite` = 22;
+-- Supprimer une réservation.
+DELETE FROM `reservation` WHERE `reservation`.`id_reservation` = 23
+
+-- la requete de jointure entre les tables pour selectionner
+SELECT a.* FROM activite as a  INNER JOIN reservation as r on r.id_activite = a.id_activite INNER JOIN client as c on r.id_client = c.id_client 
+WHERE nom = "Ruth";
