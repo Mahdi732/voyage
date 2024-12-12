@@ -21,29 +21,37 @@
         <?php
             include '/xampp/htdocs/voyage/conect.php';
 
-          $selectall = "SELECT * FROM client";
-          $data = mysqli_query($connect, $selectall);
-          if($data){
-              while($fetch = mysqli_fetch_assoc($data)){
-                  echo '<div class="flex flex-col gap-4 bg-white rounded-lg shadow-lg  h-[9rem] w-full">
-                  <div class="flex ml-4 gap-[13rem]">
-                  <p class="text-lg font-medium text-gray-600"><strong>nom:</strong> </p>
-                  <p class="text-lg font-medium text-gray-600"><strong>prenom:</strong> </p>
-                  <p class="text-lg font-medium text-gray-600"><strong>email:</strong></p>
-                  <p class="text-lg font-medium text-gray-600"><strong>telephone:</strong> </p>
-                  <p class="text-lg font-medium text-gray-600"><strong>address:</strong> </p>
-                  <p class="text-lg font-medium text-gray-600"><strong>data naissance:</strong></p>
-                  </div>  
-                  <div class="flex gap-[9.5rem] ml-4">
-                  <p class="text-lg font-medium text-gray-600">' . $fetch['nom'] . '</p>
-                  <p class="text-lg font-medium text-gray-600"> ' . $fetch["prenom"] . '</p>
-                  <p class="text-lg font-medium text-gray-600"> ' . $fetch["email"] . '</p>
-                  <p class="text-lg font-medium text-gray-600"> ' . $fetch["telephone"] . '</p>
-                  <p class="text-lg font-medium text-gray-600">' . $fetch["address"] . '</p>
-                  <p class="text-lg font-medium text-gray-600"> ' . $fetch["data_naissance"] . '</p>
-                  </div>  
-                  </div>';       
+            $selectAll = "SELECT * FROM client";
+            $data = mysqli_query($connect, $selectAll);
+          
+            if ($data) {
+              echo'<div class="overflow-x-auto shadow-md mx-2 sm:rounded-lg">';
+              echo'<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">';
+                  echo'<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                     <tr>
+                         <th scope="col" class="px-6 py-3">Name</th>
+                         <th scope="col" class="px-6 py-3">Prenom</th>
+                         <th scope="col" class="px-6 py-3">E-mail</th>
+                         <th scope="col" class="px-6 py-3">Telephone</th>
+                         <th scope="col" class="px-6 py-3">Address</th>
+                         <th scope="col" class="px-6 py-3">Date de naissance</th>
+                         <th scope="col" class="px-6 py-3">Action </th>
+                     </tr>
+                 </thead>';
+              while ($row = $data -> fetch_assoc()) {
+                  echo'<tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">' . $row["nom"] . '</th>
+                      <td class="px-6 py-4">' . $row["prenom"] . '</td>
+                      <td class="px-6 py-4">' . $row["email"] . '</td>
+                      <td class="px-6 py-4">' . $row["telephone"] . '</td>
+                      <td class="px-6 py-4">' . $row["address"] . '</td>
+                      <td class="px-6 py-4">' . $row["data_naissance"] . '</td>
+                  </tr>
+                </tbody>';
               }
+              echo'</table>';
+              echo'</div>';
             }
         ?>
     </div>

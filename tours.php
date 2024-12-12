@@ -81,61 +81,66 @@
             </form>
         </div>
     </div>
-    <?php 
-    include '/xampp/htdocs/voyage/conect.php';
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET["delete_id"])) {
-    $delete_id = $_GET["delete_id"];
-    $sqli = "DELETE FROM activite WHERE id_activite = $delete_id";
-    $result = mysqli_query($connect, $sqli);
-    $titre = isset($_POST["titre"]) ? $_POST["titre"] : '';
-    $description = isset($_POST["description"]) ? $_POST["description"] : '';
-    $destination = isset($_POST["destination"]) ? $_POST["destination"] : '';
-    $prix = isset($_POST["prix"]) ? $_POST["prix"] : '';
-    $date_debut = isset($_POST["date_debut"]) ? $_POST["date_debut"] : '';
-    $date_fin = isset($_POST["date_fin"]) ? $_POST["date_fin"] : '';
-    $places_disponibles = isset($_POST["places_disponibles"]) ? $_POST["places_disponibles"] : '';
-    $sql = "INSERT INTO activite (titre,description,destination,prix,date_debut,date_fin,places_desponsibles) VALUES ('$titre', 
-    '$description','$destination','$prix','$date_debut','$date_fin','$places_disponibles')";
-    
-    $sqlquery = mysqli_prepare($connect, $sql);
-    $sqlexcute = mysqli_stmt_execute($sqlquery);
+    <?php
+include '/xampp/htdocs/voyage/conect.php';
 
-    if($sqlexcute){
-        echo '<script type="text/javascript">
-            if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-            }
-        </script>';
-    }else{
-        echo 'error' . mysqli_stmt_error($sqlquery);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['delete_id'])) {
+        $delete_id = $_POST['delete_id'];
+        $delete_sql = "DELETE FROM activite WHERE id_activite = $delete_id";
+        $result = mysqli_query($connect, $delete_sql);
+        
+    } else {
+        $titre = $_POST['titre'];
+        $description = $_POST['description'];
+        $destination = $_POST['destination'];
+        $prix = $_POST['prix'];
+        $date_debut = $_POST['date_debut'];
+        $date_fin = $_POST['date_fin'];
+        $places_disponibles = $_POST['places_disponibles'];
+
+        $sql = "INSERT INTO activite (titre, description, destination, prix, date_debut, date_fin, places_desponsibles) 
+                VALUES ('$titre', '$description', '$destination', '$prix', '$date_debut', '$date_fin', '$places_disponibles')";
+        $result = mysqli_query($connect, $sql);
+
+        if ($result) {
+            echo '<script type="text/javascript">
+                if (window.history.replaceState) {
+                    window.history.replaceState(null, null, window.location.href);
+                }
+            </script>';
+        }
     }
-
 }
-$selectall = "SELECT * FROM activite ORDER BY titre"  ;
+
+$selectall = "SELECT * FROM activite";
 $data = mysqli_query($connect, $selectall);
-if($data){
-    echo '<div class="grid grid-cols-3 gap-x-[20rem] justify-center mt-4 ">';
-    while($fetch = mysqli_fetch_assoc($data)){
+if ($data) {
+    echo '<div class="grid grid-cols-3 gap-x-[20rem] justify-center mt-4">';
+    while ($fetch = mysqli_fetch_assoc($data)) {
         echo '<div class="max-w-sm bg-white rounded-lg shadow-lg h-[22rem] w-[19rem] p-6 mb-6 overflow-auto">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tour Details</h2>
-        <div class="space-y-1">
-        <p class="text-lg font-medium text-gray-600"><strong>Titre:</strong> ' . $fetch['titre'] . '</p>
-        <p class="text-lg font-medium text-gray-600"><strong>Description:</strong> ' . $fetch["description"] . '</p>
-        <p class="text-lg font-medium text-gray-600"><strong>Destination:</strong> ' . $fetch["destination"] . '</p>
-        <p class="text-lg font-medium text-gray-600"><strong>Prix:</strong> ' . $fetch["prix"] . ' DH</p>
-        <p class="text-lg font-medium text-gray-600"><strong>Date de Début:</strong> ' . $fetch["date_debut"] . '</p>
-        <p class="text-lg font-medium text-gray-600"><strong>Date de Fin:</strong> ' . $fetch["date_fin"] . '</p>
-        <p class="text-lg font-medium text-gray-600"><strong>Places Disponibles:</strong> ' . $fetch["places_desponsibles"] . '</p>
-        </div>
-        <form method="POST" action="">
-            <button type="submit" class=" bg-red-700 p-1 rounded-lg text-center text-[12px] w-[16rem] text-white transition-all duration-300">Delete<input type="hidden" name="delete_id" value="' . $fetch['id_activite'] . '"></button>
-        </form>        
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Tour Details</h2>
+            <div class="space-y-1">
+                <p class="text-lg font-medium text-gray-600"><strong>Titre:</strong> ' . $fetch['titre'] . '</p>
+                <p class="text-lg font-medium text-gray-600"><strong>Description:</strong> ' . $fetch['description'] . '</p>
+                <p class="text-lg font-medium text-gray-600"><strong>Destination:</strong> ' . $fetch['destination'] . '</p>
+                <p class="text-lg font-medium text-gray-600"><strong>Prix:</strong> ' . $fetch['prix'] . ' DH</p>
+                <p class="text-lg font-medium text-gray-600"><strong>Date de Début:</strong> ' . $fetch['date_debut'] . '</p>
+                <p class="text-lg font-medium text-gray-600"><strong>Date de Fin:</strong> ' . $fetch['date_fin'] . '</p>
+                <p class="text-lg font-medium text-gray-600"><strong>Places Disponibles:</strong> ' . $fetch['places_desponsibles'] . '</p>
+            </div>
+            <form method="POST" action="">
+                <button type="submit" class="bg-red-700 p-1 rounded-lg text-center text-[12px] w-[16rem] text-white transition-all duration-300">
+                    Delete
+                <input type="hidden" name="delete_id" value="' . $fetch['id_activite'] . '">
+                </button>
+            </form>
         </div>';
     }
-   
     echo '</div>';
-  }
-    ?>
+}
+?>
+
 </div>
     <footer class="bg-gray-900 text-gray-400">
         <div class=" flex flex-col md:flex-row justify-between items-center">
