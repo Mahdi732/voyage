@@ -43,5 +43,3 @@ DELETE FROM `reservation` WHERE `reservation`.`id_reservation` = 23;
 -- la requete de jointure entre les tables pour selectionner
 SELECT a.* FROM activite as a  INNER JOIN reservation as r on r.id_activite = a.id_activite INNER JOIN client as c on r.id_client = c.id_client 
 WHERE nom = "Ruth";
-
-
